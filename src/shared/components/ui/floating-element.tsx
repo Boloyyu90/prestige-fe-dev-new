@@ -8,15 +8,17 @@ interface FloatingElementProps {
   intensity?: 'subtle' | 'normal' | 'strong';
   speed?: 'slow' | 'normal' | 'fast';
   direction?: 'vertical' | 'horizontal' | 'diagonal';
+  autoPlay?: boolean;
 }
 
 export const FloatingElement: React.FC<FloatingElementProps> = ({
-                                                           children,
-                                                           className,
-                                                           intensity = 'normal',
-                                                           speed = 'normal',
-                                                           direction = 'vertical',
-                                                         }) => {
+                                                                  children,
+                                                                  className,
+                                                                  intensity = 'normal',
+                                                                  speed = 'normal',
+                                                                  direction = 'vertical',
+                                                                  autoPlay = true,
+                                                                }) => {
   const intensityMap = {
     subtle: 5,
     normal: 10,
@@ -30,6 +32,8 @@ export const FloatingElement: React.FC<FloatingElementProps> = ({
   };
 
   const getAnimation = () => {
+    if (!autoPlay) return {};
+
     const distance = intensityMap[intensity];
     const duration = speedMap[speed];
 
@@ -58,7 +62,7 @@ export const FloatingElement: React.FC<FloatingElementProps> = ({
       animate={getAnimation()}
       transition={{
         duration: speedMap[speed],
-        repeat: Infinity,
+        repeat: autoPlay ? Infinity : 0,
         ease: 'easeInOut',
       }}
     >

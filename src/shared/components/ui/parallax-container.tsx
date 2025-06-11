@@ -7,20 +7,25 @@ interface ParallaxContainerProps {
   className?: string;
   speed?: number;
   direction?: 'up' | 'down';
+  offset?: [string, string];
 }
 
 export const ParallaxContainer: React.FC<ParallaxContainerProps> = ({
-                                                               children,
-                                                               className,
-                                                               speed = 0.5,
-                                                               direction = 'up',
-                                                             }) => {
+                                                                      children,
+                                                                      className,
+                                                                      speed = 0.5,
+                                                                      direction = 'up',
+                                                                      offset = ["start end", "end start"],
+                                                                    }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset,
+  });
 
   const y = useTransform(
-    scrollY,
-    [0, 1000],
+    scrollYProgress,
+    [0, 1],
     direction === 'up' ? [0, -1000 * speed] : [0, 1000 * speed]
   );
 

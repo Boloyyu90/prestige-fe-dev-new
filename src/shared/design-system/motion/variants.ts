@@ -731,6 +731,538 @@ export const marketingVariants = {
   },
 } as const;
 
+export const marketingVariants = {
+  hero: {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+  heroImage: {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      x: 100,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.6, -0.05, 0.01, 0.99],
+        delay: 0.2,
+      },
+    },
+  },
+  feature: {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+  testimonial: {
+    hidden: {
+      opacity: 0,
+      x: 30,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: transitions.smooth,
+    },
+    exit: {
+      opacity: 0,
+      x: -30,
+      transition: transitions.fast,
+    },
+  },
+  package: {
+    hidden: {
+      opacity: 0,
+      scale: 0.9,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+  benefit: {
+    hidden: {
+      opacity: 0,
+      x: -50,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+  faq: {
+    hidden: {
+      opacity: 0,
+      height: 0,
+    },
+    visible: {
+      opacity: 1,
+      height: 'auto',
+      transition: {
+        height: {
+          duration: 0.3,
+        },
+        opacity: {
+          duration: 0.3,
+          delay: 0.1,
+        },
+      },
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        opacity: {
+          duration: 0.2,
+        },
+        height: {
+          duration: 0.3,
+          delay: 0.1,
+        },
+      },
+    },
+  },
+} as const;
+
+// Additional motion variants that might be missing
+export const additionalMotionVariants = {
+  // Enhanced fade variants
+  fadeInScale: {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+
+  // Slide variants with different directions
+  slideInTop: {
+    hidden: {
+      opacity: 0,
+      y: -50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: transitions.smooth,
+    },
+  },
+
+  slideInBottom: {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: transitions.smooth,
+    },
+  },
+
+  // Stagger container variants
+  staggerContainer: {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  },
+
+  // Item variants for stagger
+  staggerItem: {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+
+  // Card hover effects
+  cardHover: {
+    initial: {
+      scale: 1,
+      y: 0,
+    },
+    hover: {
+      scale: 1.02,
+      y: -4,
+      transition: {
+        duration: 0.2,
+        ease: 'easeOut',
+      },
+    },
+    tap: {
+      scale: 0.98,
+      transition: {
+        duration: 0.1,
+      },
+    },
+  },
+
+  // Button press effects
+  buttonPress: {
+    initial: {
+      scale: 1,
+    },
+    hover: {
+      scale: 1.05,
+      transition: {
+        duration: 0.2,
+        ease: 'easeOut',
+      },
+    },
+    tap: {
+      scale: 0.95,
+      transition: {
+        duration: 0.1,
+      },
+    },
+  },
+
+  // Loading animations
+  loadingSpinner: {
+    animate: {
+      rotate: 360,
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        ease: 'linear',
+      },
+    },
+  },
+
+  loadingDots: {
+    animate: {
+      opacity: [0.4, 1, 0.4],
+      transition: {
+        duration: 1.2,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  },
+
+  // Modal animations
+  modalBackdrop: {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  },
+
+  modalContent: {
+    hidden: {
+      opacity: 0,
+      scale: 0.95,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      y: 20,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  },
+
+  // Tooltip animations
+  tooltip: {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: 10,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.2,
+        ease: 'easeOut',
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      y: 10,
+      transition: {
+        duration: 0.15,
+      },
+    },
+  },
+
+  // Drawer animations
+  drawer: {
+    hidden: {
+      x: '100%',
+    },
+    visible: {
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+    exit: {
+      x: '100%',
+      transition: {
+        duration: 0.3,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+
+  // Notification animations
+  notification: {
+    hidden: {
+      opacity: 0,
+      x: '100%',
+      scale: 0.8,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: '100%',
+      scale: 0.8,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  },
+
+  // Progress animations
+  progressBar: {
+    hidden: {
+      scaleX: 0,
+    },
+    visible: {
+      scaleX: 1,
+      transition: {
+        duration: 1.5,
+        ease: 'easeOut',
+      },
+    },
+  },
+
+  // Floating animations
+  float: {
+    animate: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  },
+
+  floatSlow: {
+    animate: {
+      y: [0, -5, 0],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  },
+
+  floatFast: {
+    animate: {
+      y: [0, -15, 0],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  },
+
+  // Pulse animations
+  pulse: {
+    animate: {
+      scale: [1, 1.05, 1],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  },
+
+  pulseGlow: {
+    animate: {
+      boxShadow: [
+        '0 0 0 0 rgba(59, 145, 181, 0.7)',
+        '0 0 0 10px rgba(59, 145, 181, 0)',
+        '0 0 0 0 rgba(59, 145, 181, 0)',
+      ],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  },
+
+  // Typewriter effect
+  typewriter: {
+    hidden: {
+      width: 0,
+    },
+    visible: {
+      width: '100%',
+      transition: {
+        duration: 2,
+        ease: 'easeInOut',
+      },
+    },
+  },
+
+  // Reveal text from bottom
+  revealUp: {
+    hidden: {
+      y: '100%',
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  },
+
+  // Accordion expand
+  accordion: {
+    closed: {
+      height: 0,
+      opacity: 0,
+    },
+    open: {
+      height: 'auto',
+      opacity: 1,
+      transition: {
+        height: {
+          duration: 0.3,
+          ease: [0.6, -0.05, 0.01, 0.99],
+        },
+        opacity: {
+          duration: 0.2,
+          delay: 0.1,
+        },
+      },
+    },
+  },
+
+  // Tab switching
+  tabContent: {
+    hidden: {
+      opacity: 0,
+      x: 20,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: 'easeOut',
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: -20,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  },
+} as const;
+
 // Complex animation presets
 export const presetVariants = {
   // Typewriter effect
@@ -825,6 +1357,12 @@ export const presetVariants = {
   },
 } as const;
 
+export const allMotionVariants = {
+  ...motionVariants,
+  ...marketingVariants,
+  ...additionalMotionVariants,
+} as const;
+
 // Utility functions for creating custom variants
 export const createStaggerContainer = (staggerDelay: number = 0.1) => ({
   hidden: { opacity: 0 },
@@ -874,3 +1412,6 @@ export type PageVariantKey = keyof typeof pageVariants;
 export type HoverVariantKey = keyof typeof hoverVariants;
 export type LoadingVariantKey = keyof typeof loadingVariants;
 export type PresetVariantKey = keyof typeof presetVariants;
+export type MarketingVariantKey = keyof typeof marketingVariants;
+export type AdditionalMotionVariantKey = keyof typeof additionalMotionVariants;
+export type AllMotionVariantKey = keyof typeof allMotionVariants;

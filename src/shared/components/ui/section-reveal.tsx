@@ -1,5 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { cn } from '@/shared/lib/utils/cn';
 
 interface SectionRevealProps {
@@ -10,17 +13,24 @@ interface SectionRevealProps {
   duration?: number;
   stagger?: boolean;
   staggerDelay?: number;
+  threshold?: number;
 }
 
 export const SectionReveal: React.FC<SectionRevealProps> = ({
-                                                       children,
-                                                       className,
-                                                       direction = 'up',
-                                                       delay = 0,
-                                                       duration = 0.6,
-                                                       stagger = false,
-                                                       staggerDelay = 0.1,
-                                                     }) => {
+                                                              children,
+                                                              className,
+                                                              direction = 'up',
+                                                              delay = 0,
+                                                              duration = 0.6,
+                                                              stagger = false,
+                                                              staggerDelay = 0.1,
+                                                              threshold = 0.1,
+                                                            }) => {
+  const { ref, inView } = useInView({
+    threshold,
+    triggerOnce: true,
+  });
+
   const getDirectionVariants = () => {
     const directions = {
       up: { y: 50 },
@@ -53,11 +63,11 @@ export const SectionReveal: React.FC<SectionRevealProps> = ({
 
   return (
     <motion.div
+      ref={ref}
       className={cn(className)}
       variants={getDirectionVariants()}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      animate={inView ? "visible" : "hidden"}
     >
       {children}
     </motion.div>

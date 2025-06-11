@@ -1,29 +1,32 @@
 import * as React from 'react';
 import { motion, useSpring } from 'framer-motion';
 import { cn } from '@/shared/lib/utils/cn';
-import { useRef, useState, useEffect} from 'react'
+import { useRef, useState, useEffect } from 'react';
 
 interface MagneticWrapperProps {
   children: React.ReactNode;
   className?: string;
   strength?: number;
   distance?: number;
+  disabled?: boolean;
 }
 
 export const MagneticWrapper: React.FC<MagneticWrapperProps> = ({
-                                                           children,
-                                                           className,
-                                                           strength = 0.2,
-                                                           distance = 100,
-                                                         }) => {
+                                                                  children,
+                                                                  className,
+                                                                  strength = 0.2,
+                                                                  distance = 100,
+                                                                  disabled = false,
+                                                                }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
   const x = useSpring(0, { stiffness: 300, damping: 30 });
   const y = useSpring(0, { stiffness: 300, damping: 30 });
 
   useEffect(() => {
+    if (disabled) return;
+
     const element = ref.current;
     if (!element) return;
 
@@ -42,7 +45,6 @@ export const MagneticWrapper: React.FC<MagneticWrapperProps> = ({
 
         x.set(magnetX);
         y.set(magnetY);
-        setPosition({ x: magnetX, y: magnetY });
       }
     };
 
@@ -51,7 +53,6 @@ export const MagneticWrapper: React.FC<MagneticWrapperProps> = ({
       setIsHovered(false);
       x.set(0);
       y.set(0);
-      setPosition({ x: 0, y: 0 });
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -63,7 +64,7 @@ export const MagneticWrapper: React.FC<MagneticWrapperProps> = ({
       element.removeEventListener('mouseenter', handleMouseEnter);
       element.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [x, y, strength, distance]);
+  }, [x, y, strength, distance, disabled]);
 
   return (
     <motion.div

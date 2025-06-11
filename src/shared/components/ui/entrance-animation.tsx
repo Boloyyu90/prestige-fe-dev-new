@@ -1,34 +1,33 @@
-import { motion } from 'framer-motion';
-import { cn } from '@/shared/lib/utils/cn';
+'use client';
 
-import { Button } from './button'
-import { Card } from './card'
-import { AnimatedText } from './animated-text'
-import { SectionReveal } from './section-reveal'
-import { FloatingElement } from './floating-element'
-import { MagneticWrapper } from './magnetic-wrapper'
-import { ScrollProgress } from './scroll-progress'
-import { ParallaxContainer } from './parallax-container'
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { cn } from '@/shared/lib/utils/cn';
 
 interface EntranceAnimationProps {
   children: React.ReactNode;
   className?: string;
-  variant?: 'slide' | 'fade' | 'scale' | 'flip' | 'bounce';
+  variant?: 'slide' | 'fade' | 'scale' | 'flip' | 'bounce' | 'fadeInUp';
   direction?: 'up' | 'down' | 'left' | 'right';
   delay?: number;
   duration?: number;
   once?: boolean;
 }
 
-const EntranceAnimation: React.FC<EntranceAnimationProps> = ({
-                                                               children,
-                                                               className,
-                                                               variant = 'fade',
-                                                               direction = 'up',
-                                                               delay = 0,
-                                                               duration = 0.6,
-                                                               once = true,
-                                                             }) => {
+export const EntranceAnimation: React.FC<EntranceAnimationProps> = ({
+                                                                      children,
+                                                                      className,
+                                                                      variant = 'fade',
+                                                                      direction = 'up',
+                                                                      delay = 0,
+                                                                      duration = 0.6,
+                                                                      once = true,
+                                                                    }) => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: once,
+  });
+
   const getVariants = () => {
     const baseTransition = {
       duration,
@@ -38,6 +37,7 @@ const EntranceAnimation: React.FC<EntranceAnimationProps> = ({
 
     switch (variant) {
       case 'slide':
+      case 'fadeInUp':
         const slideDistance = 50;
         const slideOffsets = {
           up: { y: slideDistance },
@@ -119,26 +119,13 @@ const EntranceAnimation: React.FC<EntranceAnimationProps> = ({
 
   return (
     <motion.div
+      ref={ref}
       className={cn(className)}
       variants={getVariants()}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount: 0.3 }}
+      animate={inView ? "visible" : "hidden"}
     >
       {children}
     </motion.div>
   );
-};
-
-// Export all components
-export {
-  Button,
-  Card,
-  AnimatedText,
-  SectionReveal,
-  FloatingElement,
-  MagneticWrapper,
-  ScrollProgress,
-  ParallaxContainer,
-  EntranceAnimation,
 };
