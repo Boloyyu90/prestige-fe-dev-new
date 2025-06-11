@@ -1,17 +1,17 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { OptimizedImage } from '@/shared/components/ui/optimized-image';
-import { AnimateOnScroll } from '@/shared/components/ui/animate-on-scroll';
+import { OptimizedImage } from '@/shared/design-system/components/animations/optimized-image';
+import { AnimateOnScroll } from '@/shared/design-system/components/animations/animate-on-scroll';
 import { useIntersectionObserver } from '@/shared/hooks/use-intersection-observer';
 import { useInViewAnimation } from '@/shared/design-system/motion/hooks';
-import { SectionReveal } from '@/shared/components/ui/section-reveal';
+import { SectionReveal } from '@/shared/design-system/components/animations/section-reveal';
 import { Card } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
 import { Badge } from '@/shared/components/ui/badge';
 import { Grid } from '@/shared/components/layout/grid';
 import { Stack } from '@/shared/components/layout/stack';
-import { EntranceAnimation } from '@/shared/components/ui/entrance-animation';
+import { EntranceAnimation } from '@/shared/design-system/components/animations/entrance-animation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/shared/lib/utils/cn';
 import { Quote, ChevronLeft, ChevronRight, Star, Play, Pause } from 'lucide-react';

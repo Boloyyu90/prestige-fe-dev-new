@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { cn } from '@/shared/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface MarketingSectionProps {
   children: React.ReactNode;

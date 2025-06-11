@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion, useSpring } from 'framer-motion';
-import { cn } from '@/shared/lib/utils/cn';
+import { cn } from '@/utils/cn';
 import { useRef, useState, useEffect } from 'react';
 
 interface MagneticWrapperProps {

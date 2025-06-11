@@ -2,7 +2,7 @@
 'use client';
 
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { cn } from '@/shared/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface ScrollProgressProps {
   className?: string;

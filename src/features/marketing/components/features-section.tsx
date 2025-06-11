@@ -1,17 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { OptimizedImage } from '@/shared/components/ui/optimized-image';
+import { OptimizedImage } from '@/shared/design-system/components/animations/optimized-image';
 import { Button } from '@/shared/components/ui/button';
-import { AnimateOnScroll } from '@/shared/components/ui/animate-on-scroll';
+import { AnimateOnScroll } from '@/shared/design-system/components/animations/animate-on-scroll';
 import { useIntersectionObserver } from '@/shared/hooks/use-intersection-observer';
 import { useInViewAnimation } from '@/shared/design-system/motion/hooks';
-import { SectionReveal } from '@/shared/components/ui/section-reveal';
+import { SectionReveal } from '@/shared/design-system/components/animations/section-reveal';
 import { Grid } from '@/shared/components/layout/grid';
 import { Stack } from '@/shared/components/layout/stack';
-import { ParallaxContainer } from '@/shared/components/ui/parallax-container';
-import { FloatingElement } from '@/shared/components/ui/floating-element';
-import { EntranceAnimation } from '@/shared/components/ui/entrance-animation';
+import { ParallaxContainer } from '@/shared/design-system/components/animations/parallax-container';
+import { FloatingElement } from '@/shared/design-system/components/animations/floating-element';
+import { EntranceAnimation } from '@/shared/design-system/components/animations/entrance-animation';
 import { cn } from '@/shared/lib/utils/cn';
 import { Check, ChevronDown, Zap } from 'lucide-react';
 

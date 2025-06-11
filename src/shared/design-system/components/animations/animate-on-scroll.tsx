@@ -2,8 +2,8 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { useIntersectionObserver } from '@/shared/hooks/use-intersection-observer';
-import { cn } from '@/shared/lib/utils/cn';
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
+import { cn } from '@/utils/cn';
 
 type AnimationType = 'fadeInUp' | 'fadeIn' | 'scaleIn' | 'slideInLeft' | 'slideInRight';
 

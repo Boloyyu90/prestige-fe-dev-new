@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/shared/components/ui/button';
-import { OptimizedImage } from '@/shared/components/ui/optimized-image';
+import { OptimizedImage } from '@/shared/design-system/components/animations/optimized-image';
 import { useBreakpoint } from '@/shared/design-system/theme/responsive';
 import { useInViewAnimation } from '@/shared/design-system/motion/hooks';
 import { marketingVariants } from '@/shared/design-system/motion/variants';

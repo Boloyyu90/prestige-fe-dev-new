@@ -1,16 +1,16 @@
 'use client';
 
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { OptimizedImage } from '@/shared/components/ui/optimized-image';
+import { OptimizedImage } from '@/shared/design-system/components/animations/optimized-image';
 import { Badge } from '@/shared/components/ui/badge';
 import { Button } from '@/shared/components/ui/button';
 import { useBreakpoint } from '@/shared/design-system/theme/responsive';
 import { useInViewAnimation } from '@/shared/design-system/motion/hooks';
 import { Grid } from '@/shared/components/layout/grid';
 import { Stack } from '@/shared/components/layout/stack';
-import { SectionReveal } from '@/shared/components/ui/section-reveal';
-import { FloatingElement } from '@/shared/components/ui/floating-element';
-import { ParallaxContainer } from '@/shared/components/ui/parallax-container';
+import { SectionReveal } from '@/shared/design-system/components/animations/section-reveal';
+import { FloatingElement } from '@/shared/design-system/components/animations/floating-element';
+import { ParallaxContainer } from '@/shared/design-system/components/animations/parallax-container';
 import { useRef, memo, useMemo } from 'react';
 import {
   Users,

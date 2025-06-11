@@ -4,17 +4,17 @@ import { Badge } from '@/shared/components/ui/badge';
 import { Button } from '@/shared/components/ui/button';
 import { Card } from '@/shared/components/ui/card';
 import { PriceDisplay } from '@/shared/components/ui/price-display';
-import { AnimateOnScroll } from '@/shared/components/ui/animate-on-scroll';
-import { SectionReveal } from '@/shared/components/ui/section-reveal';
-import { EntranceAnimation } from '@/shared/components/ui/entrance-animation';
-import { FloatingElement } from '@/shared/components/ui/floating-element';
-import { ParallaxContainer } from '@/shared/components/ui/parallax-container';
+import { AnimateOnScroll } from '@/shared/design-system/components/animations/animate-on-scroll';
+import { SectionReveal } from '@/shared/design-system/components/animations/section-reveal';
+import { EntranceAnimation } from '@/shared/design-system/components/animations/entrance-animation';
+import { FloatingElement } from '@/shared/design-system/components/animations/floating-element';
+import { ParallaxContainer } from '@/shared/design-system/components/animations/parallax-container';
 import { Grid } from '@/shared/components/layout/grid';
 import { Stack } from '@/shared/components/layout/stack';
 import { useInViewAnimation } from '@/shared/design-system/motion/hooks';
 import { useAnimatedCounter } from '@/shared/hooks/use-ani';
 import { motion } from 'framer-motion';
-import { OptimizedImage } from '@/shared/components/ui/optimized-image';
+import { OptimizedImage } from '@/shared/design-system/components/animations/optimized-image';
 import { Check, Zap, ArrowRight, Gift } from 'lucide-react';
 
 interface Package {

@@ -3,7 +3,7 @@
 import Image, { ImageProps } from 'next/image';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { cn } from '@/shared/lib/utils/cn';
+import { cn } from '@/utils/cn';
 import { useState } from 'react';
 
 type OptimizedImageProps = ImageProps & {

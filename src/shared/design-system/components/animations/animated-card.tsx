@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardProps } from './card';
-import { cn } from '@/shared/lib/utils/cn';
+import { Card, CardProps } from '@/components/ui/card';
+import { cn } from '@/utils/cn';
 
 interface AnimatedCardProps extends CardProps {
   delay?: number;

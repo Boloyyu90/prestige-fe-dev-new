@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { MarketingHeader } from '@/shared/components/layout/header/marketing-header';
 import { Footer } from '@/shared/components/layout/footer';
-import { ScrollProgress } from '@/shared/components/ui/scroll-progress';
+import { ScrollProgress } from '@/shared/design-system/components/animations/scroll-progress';
 
 interface MarketingLayoutProps {
   children: React.ReactNode;

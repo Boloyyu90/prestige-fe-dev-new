@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { cn } from '@/shared/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface SectionRevealProps {
   children: React.ReactNode;
