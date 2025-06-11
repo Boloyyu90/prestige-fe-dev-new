@@ -1,25 +1,23 @@
-import * as React from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/shared/lib/utils/cn'
+import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@/shared/lib/utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-full text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transform active:scale-95',
+  'inline-flex items-center justify-center rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transform hover:scale-105 active:scale-95',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl hover:scale-105',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-lg hover:shadow-ms',
-        outline: 'border-2 border-secondary text-secondary bg-transparent hover:bg-secondary hover:text-white hover:shadow-md',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-md hover:shadow-xl hover:scale-105',
+        default: 'bg-primary text-primary-foreground shadow-md hover:shadow-md',
+        destructive: 'bg-destructive text-destructive-foreground',
+        outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground',
+        secondary: 'bg-secondary text-secondary-foreground shadow-md hover:shadow-md',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
-        gradient: 'bg-gradient-primary text-white hover:shadow-xl hover:scale-105',
       },
       size: {
         default: 'h-11 px-6 py-2',
-        sm: 'h-9 rounded-full px-4',
-        lg: 'h-12 rounded-full px-8 text-base',
-        xl: 'h-14 rounded-full px-10 text-lg',
+        sm: 'h-9 px-4',
+        lg: 'h-10 px-8',
         icon: 'h-10 w-10',
       },
     },
@@ -28,51 +26,27 @@ const buttonVariants = cva(
       size: 'default',
     },
   }
-)
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-  loading?: boolean
+  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, loading, children, disabled, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? 'span' : 'button';
     return (
-      <button
+      <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        disabled={disabled || loading}
         {...props}
-      >
-        {loading && (
-          <svg
-            className="mr-2 h-4 w-4 animate-spin"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-        )}
-        {children}
-      </button>
-    )
+      />
+    );
   }
-)
-Button.displayName = 'Button'
+);
 
-export { Button, buttonVariants }
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };

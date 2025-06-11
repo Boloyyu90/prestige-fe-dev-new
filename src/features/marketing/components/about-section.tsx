@@ -1,116 +1,80 @@
 'use client';
 
-import Image from 'next/image';
 import { Badge } from '@/shared/components/ui/badge';
-import { AnimateOnScroll } from '@/shared/components/ui/animate-on-scroll';
+import { MarketingSection } from '@/shared/components/ui/marketing-section';
+import { OptimizedImage } from '@/shared/components/ui/optimized-image';
 import { motion } from 'framer-motion';
+
+const containerVariants = {
+  visible: { transition: { staggerChildren: 0.2 } }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
 
 const AboutSection = () => {
   const features = [
-    '#Platform Terintegrasi',
-    '#Soal Berbasis Field Report',
-    '#Evaluasi Diagnostik Presisi Tinggi',
-    '#Komunitas Profesional'
+    'Platform Terintegrasi',
+    'Soal Berbasis Field Report',
+    'Evaluasi Diagnostik Presisi Tinggi',
+    'Komunitas Profesional'
   ];
 
   return (
-    <section className="section bg-white">
+    <MarketingSection id="about" aria-labelledby="about-heading" className="bg-background">
       <div className="container">
-        <AnimateOnScroll animation="fadeInUp">
-          <div className="mb-16 flex justify-center">
-            <motion.div
-              className="inline-flex items-center rounded-full bg-white border border-gray-200 px-4 py-2 shadow-soft hover:shadow-md transition-shadow"
-              whileHover={{ scale: 1.05 }}
-            >
-              <span className="text-gray-800 text-sm lg:text-base font-medium">
-                Tingkatkan nilai dengan simulasi berbasis riset!
-              </span>
-              <span className="ml-2 text-primary text-sm md:text-base font-medium whitespace-nowrap">
-                Jadilah peserta berikutnya →
-              </span>
-            </motion.div>
-          </div>
-        </AnimateOnScroll>
-
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-          {/* Left - Image */}
-          <AnimateOnScroll
-            animation="slideInLeft"
-            className="lg:w-1/2 relative order-2 lg:order-1"
-            delay={0.2}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <motion.div
-              className="relative max-w-md mx-auto lg:mx-0"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "tween", stiffness: 300 }}
-            >
-              <Image
-                src="./images/illustrations/marketing/about-asset.svg"
-                alt="About Asset"
-                width={550}
-                height={450}
-                className="w-full h-auto filter drop-shadow-xl"
-                priority
-              />
-            </motion.div>
-          </AnimateOnScroll>
+            <OptimizedImage
+              src="/images/illustrations/marketing/about-asset.svg"
+              alt="Tentang Prestige Academy"
+              width={550}
+              height={450}
+              className="w-full h-auto"
+            />
+          </motion.div>
 
-          {/* Right - Content */}
-          <AnimateOnScroll
-            animation="slideInRight"
-            className="lg:w-1/2 order-1 lg:order-2"
-            delay={0.4}
+          <motion.div
+            className="space-y-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              <span className="text-gray-900">Tentang,</span><br />
-              <span className="text-primary-500">Prestige <span className="text-secondary-500">Academy</span></span>
-            </h2>
+            <motion.div variants={itemVariants}>
+              <Badge variant="secondary">Tentang Kami</Badge>
+            </motion.div>
 
-            <div className="space-y-4 md:space-y-6">
-              <p className="text-gray-900 leading-relaxed text-responsive">
-                Selamat datang di Prestige Academy, tempat di mana semangat
-                belajar dan potensi berharga bertemu. Seperti Jalak Bali yang
-                langka dan istimewa, kami percaya bahwa setiap individu
-                memiliki keunikan, transformasi pengetahuan, dan kebebasan
-                untuk terbang menuju puncak prestasi.
-              </p>
+            <motion.h2 variants={itemVariants} id="about-heading" className="text-3xl md:text-4xl font-bold tracking-tight">
+              Tingkatkan Peluangmu dengan Platform Berbasis Riset
+            </motion.h2>
 
-              <p className="text-gray-900 leading-relaxed text-responsive">
-                Bersama kami, kamu akan dipersiapkan dengan materi dan tryout
-                berkualitas untuk menghadapi seleksi-seleksi penting, dengan
-                keseimbangan sempurna antara tradisi dan inovasi.
-                Bergabunglah dan terbang lebih tinggi bersama kami,
-                melestarikan nilai berhargamu sambil mencapai tujuan dengan
-                penuh pencerahan dan percaya diri!
-              </p>
-            </div>
+            <motion.p variants={itemVariants} className="text-lg text-muted-foreground">
+              Selamat datang di Prestige Academy. Kami bukan sekadar platform tryout, melainkan mitra strategis Anda dalam menaklukkan seleksi CASN. Dengan soal berkualitas tinggi dan analisis mendalam, kami mempersiapkan Anda secara komprehensif.
+            </motion.p>
 
-            <motion.div
-              className="flex flex-wrap gap-2 md:gap-3 mt-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, staggerChildren: 0.1 }}
-            >
+            <div className="flex flex-wrap gap-3">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7 + index * 0.1 }}
+                  custom={index}
+                  variants={itemVariants}
                 >
-                  <Badge
-                    variant="default"
-                    className="hover:scale-110 transition-transform cursor-default"
-                  >
-                    {feature}
-                  </Badge>
+                  <Badge variant="default" className="text-sm py-1.5 px-4">{feature}</Badge>
                 </motion.div>
               ))}
-            </motion.div>
-          </AnimateOnScroll>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </MarketingSection>
   );
 };
 

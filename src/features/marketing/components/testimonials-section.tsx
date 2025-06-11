@@ -1,120 +1,143 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
-import { Card } from '@/presentation/components/ui/atoms/card';
+import { SectionWrapper } from '@/shared/components/ui/section-wrapper';
+import { Card } from '@/shared/components/ui/card';
+import { OptimizedImage } from '@/shared/components/ui/optimized-image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Testimonial {
-    id: string;
-    name: string;
-    position: string;
-    avatar: string;
-    content: string;
+  id: string;
+  name: string;
+  position: string;
+  avatar: string;
+  content: string;
 }
 
 const TestimonialsSection = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    const testimonials: Testimonial[] = [
-        {
-            id: '1',
-            name: 'Nurul',
-            position: 'PNS Pemerintah Nganjuk',
-            avatar: '/images/avatars/nurul.png',
-            content: 'Menurutku kak, Prestige Academy itu platform yang paling cocok sama aku kak, yang budget paspasan untuk freshgraduate, yang harganya gak terlalu mahal tapi ilmunya yang didapat sangat mahal.'
-        },
-        {
-            id: '2',
-            name: 'Jessica Halim',
-            position: 'PNS Pemerintah Guangzho',
-            avatar: '/images/avatars/jessica.png',
-            content: 'Menurutku kak, Prestige Academy itu platform yang paling cocok sama aku kak, yang budget paspasan untuk freshgraduate, yang harganya gak terlalu mahal tapi ilmunya yang didapat sangat mahal.'
-        },
-        {
-            id: '3',
-            name: 'Darrel Simanjuntak',
-            position: 'PNS Pemerintah Bukittinggi',
-            avatar: '/images/avatars/darrel.png',
-            content: 'Menurutku kak, Prestige Academy itu platform yang paling cocok sama aku kak, yang budget paspasan untuk freshgraduate, yang harganya gak terlalu mahal tapi ilmunya yang didapat sangat mahal.'
-        }
-    ];
+  const testimonials: Testimonial[] = [
+    {
+      id: '1',
+      name: 'Nurul Hidayah',
+      position: 'PNS Kemenkeu',
+      avatar: '/images/avatars/nurul.jpg',
+      content: 'Platform yang sangat membantu dalam persiapan CPNS. Soal-soalnya mirip dengan ujian asli.'
+    },
+    {
+      id: '2',
+      name: 'Ahmad Fadli',
+      position: 'PNS Kemendikbud',
+      avatar: '/images/avatars/ahmad.jpg',
+      content: 'Berkat Prestige Academy, saya berhasil lolos seleksi CPNS dengan nilai memuaskan.'
+    },
+    {
+      id: '3',
+      name: 'Siti Rahma',
+      position: 'PNS Kemenkes',
+      avatar: '/images/avatars/siti.jpg',
+      content: 'Fitur analisis dan pembahasannya sangat detail, membantu saya memahami konsep dengan baik.'
+    }
+  ];
 
-    return (
-        <section className="py-20 bg-white">
-            <div className="container mx-auto px-4">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-                        Apa kata mereka mengenai<br />
-                        Prestige Academy
-                    </h2>
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  return (
+    <SectionWrapper className="bg-white">
+      <div className="container">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            Apa Kata Mereka
+          </h2>
+          <p className="text-muted-foreground">
+            Testimoni dari para alumni yang telah berhasil
+          </p>
+        </motion.div>
+
+        <div className="max-w-4xl mx-auto relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="p-8">
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0">
+                    <OptimizedImage
+                      src={testimonials[currentIndex].avatar}
+                      alt={testimonials[currentIndex].name}
+                      width={128}
+                      height={128}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <div className="flex-1 text-center md:text-left">
+                    <p className="text-lg mb-4 italic">
+                      "{testimonials[currentIndex].content}"
+                    </p>
+                    <div>
+                      <h4 className="font-semibold">
+                        {testimonials[currentIndex].name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {testimonials[currentIndex].position}
+                      </p>
+                    </div>
+                  </div>
                 </div>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
 
-                {/* Testimonials Grid */}
-                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    {testimonials.map((testimonial) => (
-                        <div key={testimonial.id} className="flex flex-col items-center">
-                            {/* Card */}
-                            <Card className="relative w-full mb-6 shadow-md">
-                                {/* Position Badge */}
-                                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                                    <div className="bg-primary text-white text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
-                                        {testimonial.position}
-                                    </div>
-                                </div>
+          {/* Navigation */}
+          <div className="flex justify-center gap-4 mt-8">
+            <button
+              onClick={prevTestimonial}
+              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={nextTestimonial}
+              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
 
-                                {/* Avatar Container - Reduced height */}
-                                <div className="h-[280px]">
-                                    <div className="w-full h-full mx-auto relative rounded-2xl overflow-hidden">
-                                        <Image
-                                            src={testimonial.avatar}
-                                            alt={testimonial.name}
-                                            fill
-                                            sizes="(max-width: 768px) 100vw, 33vw"
-                                            className="object-cover object-center"
-                                            quality={85}
-                                        />
-                                    </div>
-
-                                    <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 z-10">
-                                        <div className="bg-primary text-white text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
-                                            {testimonial.name}
-                                        </div>
-                                    </div>
-                                </div>
-                            </Card>
-
-                            {/* Content */}
-                            <div className="w-full max-w-sm relative rounded-xl"
-                                 style={{
-                                     background: "linear-gradient(to bottom, rgba(255, 255, 255), rgba(50, 116, 152, 1))"
-                                 }}>
-                                {/* Inner content with background */}
-                                <div className="bg-white m-1 rounded-lg">
-                                    <p className="text-gray-600 text-sm leading-relaxed py-4 px-4">
-                                        {testimonial.content}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Navigation Dots */}
-                <div className="flex justify-center gap-2 mt-10">
-                    {[...Array(3)].map((_, index) => (
-                        <button
-                            key={index}
-                            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                                index === currentIndex ? 'bg-primary' : 'bg-gray-300'
-                            }`}
-                            onClick={() => setCurrentIndex(index)}
-                        />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-4">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  index === currentIndex ? 'bg-primary' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
 };
 
 export default TestimonialsSection;

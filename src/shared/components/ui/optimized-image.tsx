@@ -1,76 +1,46 @@
-
 'use client';
 
-import { useState } from 'react';
 import Image, { ImageProps } from 'next/image';
-import { cn } from '@/shared/lib/utils/cn';
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { cn } from '@/shared/lib/utils/cn';
+import { useState } from 'react';
 
-interface OptimizedImageProps extends Omit<ImageProps, 'onLoad' | 'onError'> {
-  fallbackSrc?: string;
-  aspectRatio?: number;
-  objectPosition?: string;
-}
+type OptimizedImageProps = ImageProps & {
+  containerClassName?: string;
+};
 
 export function OptimizedImage({
                                  src,
                                  alt,
                                  className,
-                                 fallbackSrc = '/images/placeholder.jpg',
-                                 aspectRatio,
-                                 objectPosition = 'center',
+                                 containerClassName,
                                  priority = false,
-                                 quality = 75,
                                  ...props
                                }: OptimizedImageProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const effectiveSrc = inView || priority ? src : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden bg-gray-100",
-        aspectRatio && "w-full",
-        className
-      )}
-      style={aspectRatio ? { aspectRatio } : undefined}
-    >
-      {/* Skeleton loader */}
-      {isLoading && (
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100"
-          animate={{
-            x: ["0%", "100%"],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            backgroundSize: "200% 100%",
-          }}
-        />
-      )}
-
+    <div ref={ref} className={cn("relative overflow-hidden", containerClassName)}>
+      <motion.div
+        className="absolute inset-0 bg-muted shimmer"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isLoaded ? 0 : 1 }}
+        transition={{ duration: 0.5 }}
+      />
       <Image
-        {...props}
-        src={error ? fallbackSrc : src}
+        src={effectiveSrc}
         alt={alt}
-        quality={quality}
+        className={cn("transition-opacity duration-500", isLoaded ? "opacity-100" : "opacity-0", className)}
+        onLoad={() => setIsLoaded(true)}
         priority={priority}
-        className={cn(
-          "transition-opacity duration-300",
-          isLoading ? "opacity-0" : "opacity-100",
-          "object-cover"
-        )}
-        style={{ objectPosition }}
-        onLoad={() => setIsLoading(false)}
-        onError={() => {
-          setError(true);
-          setIsLoading(false);
-        }}
-        sizes={props.fill ? "100vw" : props.sizes}
+        {...props}
       />
     </div>
   );
