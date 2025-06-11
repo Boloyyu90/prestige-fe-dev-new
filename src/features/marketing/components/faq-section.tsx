@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { SectionWrapper } from '@/shared/components/ui/section-wrapper';
+import { SectionReveal } from '@/components/ui/section-reveal';
 import { Card } from '@/shared/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
@@ -48,7 +48,7 @@ const FaqSection = () => {
   };
 
   return (
-    <SectionWrapper className="bg-gray-50">
+    <SectionReveal className="bg-gray-50">
       <div className="container">
         <motion.div
           className="text-center mb-12"
@@ -107,7 +107,7 @@ const FaqSection = () => {
           ))}
         </div>
       </div>
-    </SectionWrapper>
+    </SectionReveal>
   );
 };
 

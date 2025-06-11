@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { SectionWrapper } from '@/shared/components/ui/section-wrapper';
+import { SectionReveal } from '@/components/ui/section-reveal';
 import { Card } from '@/shared/components/ui/card';
 import { OptimizedImage } from '@/shared/components/ui/optimized-image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -51,7 +51,7 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <SectionWrapper className="bg-white">
+    <SectionReveal className="bg-white">
       <div className="container">
         <motion.div
           className="text-center mb-12"
@@ -136,7 +136,7 @@ const TestimonialsSection = () => {
           </div>
         </div>
       </div>
-    </SectionWrapper>
+    </SectionReveal>
   );
 };
 
