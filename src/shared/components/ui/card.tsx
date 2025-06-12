@@ -1,68 +1,30 @@
-'use client';
+import { motion } from 'framer-motion'
+import { cn } from '@/shared/lib/utils/cn'
 
-import * as React from 'react';
-import { motion} from 'framer-motion';
-import { cn } from '@/shared/lib/utils/cn';
-import { hoverVariants, transitions } from '@/shared/design-system/motion/variants';
-
-
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CardProps {
+  children: React.ReactNode;
+  className?: string;
   hover?: boolean;
-  interactive?: boolean;
-  loading?: boolean;
-  elevation?: 1 | 2 | 3 | 4 | 5;
+  padding?: 'sm' | 'md' | 'lg';
 }
 
-export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({
-     className,
-     hover = false,
-     interactive = false,
-     loading = false,
-     elevation = 1,
-     children,
-     ...props
-   }, ref) => {
-    const elevationClasses = {
-      1: 'shadow-elevation-1',
-      2: 'shadow-elevation-2',
-      3: 'shadow-elevation-3',
-      4: 'shadow-elevation-4',
-      5: 'shadow-elevation-5',
-    };
+export function Card({ children, className, hover = false, padding = 'md' }: CardProps) {
+  const paddingClasses = {
+    sm: 'p-4',
+    md: 'p-6',
+    lg: 'p-8',
+  };
 
-    return (
-      <motion.div
-        ref={ref}
-        className={cn(
-          'card-base relative overflow-hidden',
-          elevationClasses[elevation],
-          {
-            'cursor-pointer': interactive,
-          },
-          className
-        )}
-        variants={hover || interactive ? hoverVariants.lift : undefined}
-        initial="initial"
-        whileHover={hover || interactive ? "hover" : undefined}
-        whileTap={interactive ? "tap" : undefined}
-        transition={transitions.smooth}
-        {...props}
-      >
-        {loading && (
-          <div className="absolute inset-0 bg-background/50 backdrop-blur-sm flex items-center justify-center z-10">
-            <motion.div
-              className="h-8 w-8 border-2 border-primary border-t-transparent rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-            />
-          </div>
-        )}
+  const baseClasses = 'bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm';
+  const hoverClasses = hover ? 'transition-all hover:shadow-lg hover:-translate-y-1' : '';
 
-        {children}
-      </motion.div>
-    );
-  }
-);
-
-Card.displayName = 'Card';
+  return (
+    <motion.div
+      className={cn(baseClasses, paddingClasses[padding], hoverClasses, className)}
+      whileHover={hover ? { y: -4 } : {}}
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+    >
+      {children}
+    </motion.div>
+  );
+}

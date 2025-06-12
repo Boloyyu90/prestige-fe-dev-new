@@ -52,7 +52,7 @@ const FeaturesSection = dynamic(
 );
 
 const PackagesSection = dynamic(
-  () => import('@/features/marketing/components/packages-section'),
+  () => import('@/features/marketing/components/packages-showcase'),
   {
     loading: () => (
       <div className="h-96 flex items-center justify-center">

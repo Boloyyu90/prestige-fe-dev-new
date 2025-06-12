@@ -35,10 +35,10 @@ const directories = [
     'src/app/(admin)/admin/master-data/education-levels',
     'src/app/(admin)/admin/master-data/majors',
 
-    'src/app/(tryout)/tryout/[sessionId]/start',
-    'src/app/(tryout)/tryout/[sessionId]/test',
-    'src/app/(tryout)/tryout/[sessionId]/review',
-    'src/app/(tryout)/tryout/[sessionId]/result',
+    'src/app/(exam)/tryout/[sessionId]/start',
+    'src/app/(exam)/tryout/[sessionId]/test',
+    'src/app/(exam)/tryout/[sessionId]/review',
+    'src/app/(exam)/tryout/[sessionId]/result',
 
     'src/app/(marketing)/about',
     'src/app/(marketing)/packages',
@@ -232,7 +232,7 @@ export default function AdminLayout({
     },
 
     {
-        path: 'src/app/(tryout)/layout.tsx',
+        path: 'src/app/(exam)/layout.tsx',
         content: `export default function TryoutLayout({
   children,
 }: {

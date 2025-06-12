@@ -1,131 +1,56 @@
-'use client';
+import { motion } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
+import { cn } from '@/shared/lib/utils/cn'
 
-import * as React from 'react';
-import { motion, type HTMLMotionProps } from 'framer-motion';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/shared/lib/utils/cn';
-import { hoverVariants, transitions } from '@/shared/design-system/motion/variants';
-
-const buttonVariants = cva(
-  'btn-base relative overflow-hidden transform-gpu',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-primary-foreground shadow-md hover:shadow-lg',
-        destructive: 'bg-error-500 text-white shadow-md hover:shadow-lg',
-        outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground',
-        secondary: 'bg-secondary text-secondary-foreground shadow-md hover:shadow-lg',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
-        gradient: 'bg-gradient-to-r from-primary-600 to-secondary-500 text-white shadow-lg hover:shadow-xl',
-      },
-      size: {
-        default: 'h-11 px-6 py-2 text-sm',
-        sm: 'h-9 px-4 text-xs',
-        lg: 'h-12 px-8 text-base',
-        xl: 'h-14 px-10 text-lg',
-        icon: 'h-10 w-10',
-      },
-      animation: {
-        none: '',
-        lift: '',
-        scale: '',
-        glow: '',
-        shimmer: '',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-      animation: 'lift',
-    },
-  }
-);
-
-interface ButtonProps
-  extends Omit<HTMLMotionProps<'button'>, 'size'>,
-    VariantProps<typeof buttonVariants> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
-  icon?: React.ReactNode;
+  leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  asChild?: boolean;
+  children: React.ReactNode;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({
-     className,
-     variant,
-     size,
-     animation = 'lift',
-     loading = false,
-     icon,
-     rightIcon,
-     children,
-     disabled,
-     ...props
-   }, ref) => {
-    const getHoverVariant = () => {
-      switch (animation) {
-        case 'lift':
-          return hoverVariants.lift;
-        case 'scale':
-          return hoverVariants.scale;
-        case 'glow':
-          return hoverVariants.glow;
-        default:
-          return {};
-      }
-    };
+export function Button({
+                         variant = 'primary',
+                         size = 'md',
+                         loading,
+                         leftIcon,
+                         rightIcon,
+                         className,
+                         disabled,
+                         children,
+                         ...props
+                       }: ButtonProps) {
+  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
 
-    const shimmerEffect = animation === 'shimmer' && (
-      <motion.div
-        className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
-        animate={{
-          x: ['0%', '200%'],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-    );
+  const variantClasses = {
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg',
+    secondary: 'bg-purple-600 text-white hover:bg-purple-700 shadow-md hover:shadow-lg',
+    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white',
+    ghost: 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800',
+  };
 
-    return (
-      <motion.button
-        ref={ref}
-        className={cn(buttonVariants({ variant, size, animation, className }))}
-        disabled={disabled || loading}
-        variants={getHoverVariant()}
-        initial="initial"
-        whileHover={!disabled && !loading ? "hover" : undefined}
-        whileTap={!disabled && !loading ? "tap" : undefined}
-        transition={transitions.fast}
-        {...props}
-      >
-        {shimmerEffect}
+  const sizeClasses = {
+    sm: 'px-4 py-2 text-sm rounded-lg',
+    md: 'px-6 py-3 text-base rounded-lg',
+    lg: 'px-8 py-4 text-lg rounded-xl',
+  };
 
-        {loading && (
-          <motion.div
-            className="mr-2"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          >
-            <div className="h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
-          </motion.div>
-        )}
-
-        {icon && !loading && (
-          <span className="mr-2">{icon}</span>
-        )}
-
-        {children}
-
-        {rightIcon && (
-          <span className="ml-2">{rightIcon}</span>
-        )}
-      </motion.button>
-    );
-  }
-);
-
-Button.displayName = 'Button';
+  return (
+    <motion.button
+      className={cn(baseClasses, variantClasses[variant], sizeClasses[size], className)}
+      disabled={disabled || loading}
+      whileHover={{ scale: disabled || loading ? 1 : 1.02 }}
+      whileTap={{ scale: disabled || loading ? 1 : 0.98 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      {...props}
+    >
+      {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+      {leftIcon && !loading && <span className="mr-2">{leftIcon}</span>}
+      {children}
+      {rightIcon && <span className="ml-2">{rightIcon}</span>}
+    </motion.button>
+  );
+}

@@ -1,29 +1,35 @@
 import { cn } from "@/shared/lib/utils/cn"
-import CountUp from "react-countup"
 
 interface PriceDisplayProps {
-  price: number
-  className?: string
-  duration?: number
-  prefix?: string
-  separator?: string
+  amount: number;
+  currency?: string;
+  period?: string;
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
 export function PriceDisplay({
-                               price,
-                               className,
-                               duration = 1,
-                               prefix = "",
-                               separator = "."
+                               amount,
+                               currency = 'Rp',
+                               period,
+                               size = 'md',
+                               className
                              }: PriceDisplayProps) {
+  const sizeClasses = {
+    sm: 'text-lg',
+    md: 'text-2xl',
+    lg: 'text-3xl',
+  };
+
+  const formatAmount = (num: number) => {
+    return new Intl.NumberFormat('id-ID').format(num);
+  };
+
   return (
-    <CountUp
-      start={0}
-      end={price}
-      duration={duration}
-      separator={separator}
-      prefix={prefix}
-      className={cn("tabular-nums", className)}
-    />
-  )
+    <div className={cn('font-bold text-gray-900 dark:text-white', sizeClasses[size], className)}>
+      <span className="text-sm font-normal text-gray-500">{currency}</span>
+      <span className="ml-1">{formatAmount(amount)}</span>
+      {period && <span className="text-sm font-normal text-gray-500">/{period}</span>}
+    </div>
+  );
 }
